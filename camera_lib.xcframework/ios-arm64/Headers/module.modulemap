@@ -1,0 +1,7 @@
+module camera_libFFI {
+    header "camera_libFFI.h"
+    export *
+    use "Darwin"
+    use "_Builtin_stdbool"
+    use "_Builtin_stdint"
+}
