@@ -31,6 +31,7 @@ public func open_camera(_ callback: @escaping CameraCallback) {
         CameraLibrary.shared.openCamera { result in
             switch result {
             case .success(let data):
+                print("[\(HelperMethods.shared.getCurrentTimeStamp())] Image captured successfully, preparing data for callback.")
                 // Convert Swift String to a null-terminated UTF-8 C string buffer.
                 let utf8CString = Array((data as String).utf8CString) // includes trailing `\0`
                 let byteCount = utf8CString.count
