@@ -26,7 +26,7 @@ public typealias CameraCallback = @Sendable @convention(c) (
 #if canImport(UIKit)
 @_cdecl("open_camera")
 public func open_camera(_ callback: @escaping CameraCallback) {
-    DispatchQueue.main.async {
+    Task { @MainActor in
         print("[\(HelperMethods.shared.getCurrentTimeStamp())] Open Camera called from wrapper")
         CameraLibrary.shared.openCamera { result in
             switch result {

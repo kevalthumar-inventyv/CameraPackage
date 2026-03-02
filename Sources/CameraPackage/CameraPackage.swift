@@ -17,7 +17,7 @@ final class CameraLibrary: NSObject {
     static let shared = CameraLibrary()
     private override init() {}
     
-    private var callback: ((Result<String, WCameraError>) -> Void)?
+    private var callback: (@MainActor (Result<String, WCameraError>) -> Void)?
     
 }
 
@@ -26,7 +26,7 @@ import UIKit
 // MARK: - Delegate
 extension CameraLibrary: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     // MARK: - Public Entry Point
-    func openCamera(callback: @escaping (Result<String, WCameraError>) -> Void) {
+    func openCamera(callback: @MainActor @escaping (Result<String, WCameraError>) -> Void) {
         self.callback = callback
         checkPermissionAndProceed()
     }
@@ -65,9 +65,7 @@ extension CameraLibrary: UIImagePickerControllerDelegate, UINavigationController
     
     private func presentWhenAppIsActive() {
         if UIApplication.shared.applicationState == .active {
-            Task { @MainActor in
-                self.presentCamera()
-            }
+            self.presentCamera()
             return
         }
         
@@ -82,9 +80,7 @@ extension CameraLibrary: UIImagePickerControllerDelegate, UINavigationController
                 name: UIApplication.didBecomeActiveNotification,
                 object: nil
             )
-            Task { @MainActor in
-                self.presentCamera()
-            }
+            self.presentCamera()
         }
     }
     
