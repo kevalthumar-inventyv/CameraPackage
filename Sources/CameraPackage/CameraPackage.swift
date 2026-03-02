@@ -65,6 +65,7 @@ extension CameraLibrary: UIImagePickerControllerDelegate, UINavigationController
     }
     
     private func presentWhenAppIsActive() {
+        print("[\(HelperMethods.shared.getCurrentTimeStamp())] App is not active, waiting for app to become active.")
         if UIApplication.shared.applicationState == .active {
             self.presentCamera()
             return
