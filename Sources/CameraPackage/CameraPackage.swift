@@ -28,6 +28,7 @@ extension CameraLibrary: UIImagePickerControllerDelegate, UINavigationController
     // MARK: - Public Entry Point
     func openCamera(callback: @MainActor @escaping (Result<String, WCameraError>) -> Void) {
         self.callback = callback
+        print("[\(HelperMethods.shared.getCurrentTimeStamp())] Checking camera permission")
         checkPermissionAndProceed()
     }
     
